@@ -2,8 +2,8 @@
 Ethereum project manual: Git, Node, Solidity...
 
 ## Table of contents
-- [Git/GitHub](#git-github)
-- [Node/Npm](#node-npm)
+- [Git/GitHub](#gitgithub)
+- [Node/Npm](#nodenpm)
 - [Project files](#project-files)
   
 ## Git/GitHub
