@@ -1,2 +1,11 @@
-# manual-git-node-ethereum
-Manual de Git, Node, ... per projectes de Ethereum amb Solidiy
+# Ethereum project manual
+Ethereum project manual: Git, Node, Solidity...
+
+## Git/GitHub
+...
+
+## Node/Npm
+...
+
+## Project files
+...
