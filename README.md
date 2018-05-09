@@ -3,16 +3,20 @@ Ethereum project manual: Git, Node, Solidity...
 
 ## Table of contents
 * [Prerequisites](#prerequisites)
-* [Git/GitHub](#gitgithub)
-* [Node/npm](#nodenpm)
-* [Project files](#project-files)
+* [Using Git/GitHub](#using-gitgithub)
+* [Using Node/npm](#using-nodenpm)
+* [Start a new project](#start-a-new-project)
+* [Work with an existing project](#work-with-an-existing-project)
   
 ## Prerequisites
-* Git
+* __Git__
   * [Git for Windows](https://git-scm.com/download/win)
-  * Git for Linux: `$ sudo apt-get install git`
+  * Git for Linux:
+  ```
+  $ sudo apt-get install git
+  ```
   * or [GitHub Desktop](https://desktop.github.com/)
-* Node.js & npm
+* __Node.js & npm__
   * [Node 8 for Windows](https://nodejs.org/dist/v8.9.1/node-v8.9.1-x64.msi)
   * Node 8 for Linux:
   ```
@@ -20,14 +24,22 @@ Ethereum project manual: Git, Node, Solidity...
   $ sudo apt-get install -y build-essential
   $ sudo apt-get install -y nodejs
   ```
-* Visual Studio Code
+  * Execute once to install Web3, __only in Windows__, as administrator:
+  ```
+  $ npm install --global --production windows-build-tools 
+  ```
+* __Visual Studio Code__
   * [Visual Studio Code for Windows/Linux/Mac](https://code.visualstudio.com/Download)
+  * [Ethereum Solidity Language plugin for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity)
 
-## Git/GitHub
+## Using Git/GitHub
 ...
 
-## Node/npm
+## Using Node/npm
 ...
 
-## Project files
+## Start a new project
+...
+
+## Work with an existing project
 ...
