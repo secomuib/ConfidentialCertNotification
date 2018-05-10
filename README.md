@@ -72,4 +72,12 @@ Add GitHub remote reposotory
 git remote add origin https://github.com/secomuib/projectName.git
 ```
 ## Working with an existing project
-...
+Clone an exisiting GitHub repository
+```
+git clone https://github.com/secomuib/projectName.git
+cd projectName
+```
+Install all modules listed as dependencies in package.json
+```
+npm install
+```
