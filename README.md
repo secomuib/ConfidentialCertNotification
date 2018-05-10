@@ -5,6 +5,7 @@ Ethereum project manual: Git, Node, Solidity...
 * [Prerequisites](#prerequisites)
 * [Using Git](#using-git)
 * [Starting a new project](#starting-a-new-project)
+* [Example project](#example-project)
 * [Working with an existing project](#working-with-an-existing-project)
   
 ## Prerequisites
@@ -52,14 +53,14 @@ Ethereum project manual: Git, Node, Solidity...
 ## Starting a new project
 Create a new project folder
 ```
-mkdir projectName
-cd projectName
+mkdir projectname
+cd projectname
 ```
 Create a package.json file
 ```
 npm init
 ```
-Install __solc__ (Solidity compiler), __Mocha__ (JavaScript test framework), __Ganache__ (personal Ethereum blockchain), __Web3__ (Ethereum JavaScript API), and __truffle-hdwallet-provider__(HD Wallet-enabled Web3 provider) npm modules
+Install __solc__ (Solidity compiler), __Mocha__ (JavaScript test framework), __Ganache__ (personal Ethereum blockchain), __Web3__ (Ethereum JavaScript API), and __truffle-hdwallet-provider__(HD Wallet-enabled Web3 provider) npm modules, saving this dependencies to package.json file
 ```
 npm install --save solc mocha ganache-cli web3@1.0.0-beta.26 truffle-hdwallet-provider
 ```
@@ -69,15 +70,27 @@ git init
 ```
 Add GitHub remote reposotory
 ```
-git remote add origin https://github.com/secomuib/projectName.git
+git remote add origin https://github.com/secomuib/projectname.git
 ```
+
+## Example project
+ * [package.json file](https://github.com/secomuib/ethereum-project-manual/blob/master/package.json)
+ * [.gitignore file](https://github.com/secomuib/ethereum-project-manual/blob/master/.gitignore)
+ * [compile.js file](https://github.com/secomuib/ethereum-project-manual/blob/master/compile.js)
+ * [test.js file](https://github.com/secomuib/ethereum-project-manual/blob/master/test.js)
+ * [deploy.js file](https://github.com/secomuib/ethereum-project-manual/blob/master/deploy.js)
+
 ## Working with an existing project
 Clone an exisiting GitHub repository
 ```
-git clone https://github.com/secomuib/projectName.git
-cd projectName
+git clone https://github.com/secomuib/projectname.git
+cd projectname
 ```
 Install all modules listed as dependencies in package.json
 ```
 npm install
 ```
+
+__Deploy contract__: `npm start` or `node deploy.js`
+
+__Execute test__: `npm test` or `mocha`
