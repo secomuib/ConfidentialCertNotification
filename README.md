@@ -33,7 +33,21 @@ Ethereum project manual: Git, Node, Solidity...
   * [Ethereum Solidity Language plugin for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=JuanBlanco.solidity)
 
 ## Using Git/GitHub
-...
+
+### Git workflow
+![Git workflow](git.png "Git workflow")
+
+### Git commands
+| Command                             | Description                                           |
+| ------------------------------------|-------------------------------------------------------|
+| `git init`                          | Creates a new local repository                        |
+| `git clone <url>`                   | Downloads a project and its entire version history    |
+| `git status`                        | Lists all new or modified files to be commited        |
+| `git diff [filename]`               | Shows file differences not yet staged                 |
+| `git add [-u] [filename|.|pattern]` | Snapshots the file in preparation for versioning      |
+| `git commit [-m "message"]`         | Records file snapshots permanently in version history |
+| `git push origin master`            | Uploads all local branch commits to GitHub            |
+| `git pull origin master`            | Downloads bookmark history and incorporates changes   |
 
 ## Using Node/npm
 ...
