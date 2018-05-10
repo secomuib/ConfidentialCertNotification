@@ -77,7 +77,7 @@ git remote add origin https://github.com/secomuib/projectname.git
  * [package.json file](https://github.com/secomuib/ethereum-project-manual/blob/master/package.json)
  * [.gitignore file](https://github.com/secomuib/ethereum-project-manual/blob/master/.gitignore)
  * [compile.js file](https://github.com/secomuib/ethereum-project-manual/blob/master/compile.js)
- * [test.js file](https://github.com/secomuib/ethereum-project-manual/blob/master/test.js)
+ * [test.js file](https://github.com/secomuib/ethereum-project-manual/blob/master/test/test.js)
  * [deploy.js file](https://github.com/secomuib/ethereum-project-manual/blob/master/deploy.js)
 
 ## Working with an existing project
