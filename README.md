@@ -68,7 +68,7 @@ Initialize a new Git local repository
 ```
 git init
 ```
-Add GitHub remote reposotory
+Add GitHub remote repository
 ```
 git remote add origin https://github.com/secomuib/projectname.git
 ```
