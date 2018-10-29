@@ -11,10 +11,10 @@ npm install
 ## Execution
 To deploy to Rinkeby test network:
 ```
-npm deploy
+npm run deploy
 ```
 
 To execute test:
 ```
-npm test
+npm run test
 ```
