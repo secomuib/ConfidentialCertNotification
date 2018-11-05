@@ -1,95 +1,82 @@
-pragma solidity ^0.4.24;
+pragma solidity ^0.4.25;
 
-// Notificació certificada no confidencial, d'un sol ús
-contract Notification {  //NonConfidentialNotification
+// Notificació multipart certificada no confidencial, d'un sol ús
+contract NonConfidentialMultipartyNotification {
+    // Possible states
+    enum State {notexists, created, cancelled, accepted, finished }
+    
     // Parties involved
     address public sender;
-    address public receiver;
+    address[] public receivers;
+    mapping (address => State) public receiversState;
 
     // Message
     bytes32 public messageHash;
     string public message;
     // Time limit (in seconds)
     // See units: http://solidity.readthedocs.io/en/develop/units-and-global-variables.html?highlight=timestamp#time-units
-    uint public term; 
+    uint public term1; 
+    uint public term2; 
     // Start time
     uint public start; 
 
-    // Possible states
-    enum State {created, cancelled, accepted, finished }
-    State public state;
-
-    event StateInfo( State state );
-
-    constructor (address _receiver, bytes32 _messageHash, uint _term) public payable {
-        require (msg.value>0); // Requires that the sender send a deposit of minimum 1 wei (>0 wei)
+    constructor (address[] _receivers, bytes32 _messageHash, uint _term1, uint _term2) public payable {
+        // Requires that the sender send a deposit of minimum 1 wei (>0 wei)
+        require(msg.value>0, "Sender has to send a deposit of minimun 1 wei"); 
         sender = msg.sender;
-        receiver = _receiver;
+        receivers = _receivers;
+        // We set the state of every receiver to 'created'
+        for (uint i = 0; i<receivers.length; i++) {
+            receiversState[receivers[i]] = State.created;
+        }
         messageHash = _messageHash;
         start = now; // now = block.timestamp
-        term = _term;
-        state = State.created;
-        emit StateInfo(state);
+        term1 = _term1;
+        term2 = _term2;
     }
 
     function accept() public {
-        require (msg.sender==receiver && state==State.created);
-        state = State.accepted;
-        emit StateInfo(state);
+        require(now < start+term1, "The timeout term1 has been reached");
+        require(receiversState[msg.sender]==State.created, "Only receivers with 'created' state can accept");
+
+        receiversState[msg.sender] = State.accepted;
     }
 
     function finish(string _message) public {
-        require(now < start+term); // It's not possible to finish after deadline
-        require (msg.sender==sender && state==State.accepted);
-        require (messageHash==keccak256(_message));
+        require(now >= start+term1, "The timeout term1 has not been reached");
+        require (msg.sender==sender, "Only sender of the notification can finish");
+        require (messageHash==keccak256(_message), "Message not valid (different hash)");
+        
         message = _message;
         sender.transfer(this.balance); // Sender receives the refund of the deposit
-        state = State.finished;
-        emit StateInfo(state);
+        // We set the state of every receiver with 'accepted' state to 'finished'
+        for (uint i = 0; i<receivers.length; i++) {
+            if (receiversState[receivers[i]] == State.accepted) {
+                receiversState[receivers[i]] = State.finished;    
+            }
+        }
     }
 
     function cancel() public {
-        require(now >= start+term); //  It's not possible to cancel before deadline
+        /*require(now >= start+term); //  It's not possible to cancel before deadline
         require((msg.sender==sender && state==State.created) || (msg.sender==receiver && state==State.accepted));
         if (msg.sender==sender && state==State.created) {
             sender.transfer(this.balance); // Sender receives the refund of the deposit
         }
-        state = State.cancelled;
-        emit StateInfo(state);
+        state = State.cancelled;*/
     }
 
-    function getState() public view returns (string) {
-        if (state==State.created) {
+    function getState(address _receiver) public view returns (string) {
+        if (receiversState[_receiver]==State.notexists) {
+            return "not exists";
+        } else if (receiversState[_receiver]==State.created) {
             return "created";
-        } else if (state==State.cancelled) {
+        } else if (receiversState[_receiver]==State.cancelled) {
             return "cancelled";
-        } else if (state==State.accepted) {
+        } else if (receiversState[_receiver]==State.accepted) {
             return "accepted";
-        } else if (state==State.finished) {
+        } else if (receiversState[_receiver]==State.finished) {
             return "finished";
         } 
-    }
-
-    function getSummary() public view returns (address, address, uint, bytes32, string, uint, uint, string) {
-        string memory _state;
-        if (state==State.created) {
-            _state = "created";
-        } else if (state==State.cancelled) {
-            _state = "cancelled";
-        } else if (state==State.accepted) {
-            _state = "accepted";
-        } else if (state==State.finished) {
-            _state = "finished";
-        } 
-        return (
-          sender,
-          receiver,
-          this.balance,
-          messageHash,
-          message,
-          term,
-          start,
-          _state
-        );
     }
 }
