@@ -58,12 +58,10 @@ contract NonConfidentialMultipartyNotification {
     }
 
     function cancel() public {
-        /*require(now >= start+term); //  It's not possible to cancel before deadline
-        require((msg.sender==sender && state==State.created) || (msg.sender==receiver && state==State.accepted));
-        if (msg.sender==sender && state==State.created) {
-            sender.transfer(this.balance); // Sender receives the refund of the deposit
-        }
-        state = State.cancelled;*/
+        require(now >= start+term2, "The timeout term2 has not been reached");
+        require(receiversState[msg.sender]==State.accepted, "Only receivers with 'accepted' state can cancel");
+
+        receiversState[msg.sender] = State.cancelled;
     }
 
     function getState(address _receiver) public view returns (string) {
