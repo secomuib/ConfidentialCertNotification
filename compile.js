@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const solc = require("solc");
 
-const CONTRACT_NAME = "Notification";
+const CONTRACT_NAME = "NonConfidentialMultipartyRegisteredEDelivery";
 
 var contractPath = path.resolve(__dirname, "contracts", CONTRACT_NAME+".sol");
 var contractSource = fs.readFileSync(contractPath, "utf8");

@@ -1,7 +1,7 @@
 {
-  "name": "multipartynonconfidentialnotification",
+  "name": "nonconfidentialmultipartyregisterededeliveryfactory",
   "version": "1.0.0",
-  "description": "MultipartyNonConfidentialNotification Ethereum project",
+  "description": "Non-Confidential Multiparty Registered eDelivery contract for Ethereum with Factory",
   "main": "deploy.js",
   "directories": {
     "doc": "doc",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/secomuib/MultipartyNonConfidentialNotification.git"
+    "url": "git+https://github.com/secomuib/NonConfidentialMultipartyRegisteredEDeliveryFactory.git"
   },
   "keywords": [
     "ethereum",
@@ -23,13 +23,13 @@
   "author": "Seguretat i comerç electrònic (SECOM)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/secomuib/MultipartyNonConfidentialNotification/issues"
+    "url": "https://github.com/secomuib/NonConfidentialMultipartyRegisteredEDeliveryFactory/issues"
   },
-  "homepage": "https://github.com/secomuib/MultipartyNonConfidentialNotification#readme",
+  "homepage": "https://github.com/secomuib/NonConfidentialMultipartyRegisteredEDeliveryFactory#readme",
   "dependencies": {
     "ganache-cli": "^6.1.3",
     "mocha": "^5.2.0",
-    "solc": "^0.4.24",
+    "solc": "^0.4.25",
     "truffle-hdwallet-provider": "0.0.3",
     "web3": "^1.0.0-beta.26"
   }

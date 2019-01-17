@@ -1,7 +1,7 @@
 pragma solidity ^0.4.25;
 
 // Notificació multipart certificada no confidencial, d'un sol ús
-contract NonConfidentialMultipartyNotification {
+contract NonConfidentialMultipartyRegisteredEDelivery {
     // Possible states
     enum State {notexists, created, cancelled, accepted, finished }
     
