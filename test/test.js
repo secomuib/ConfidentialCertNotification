@@ -26,4 +26,40 @@ describe('Certified eDelivery Contract', () => {
     assert.equal(messageHash, web3.utils.keccak256("Test message"));
   });
 
+  it("non receivers can't accept delivery", async function() {
+    try { 
+      await deliveryContract.methods.accept().send({ from: accounts[3] });
+      assert(false);
+    } catch (err) {
+      assert(err);
+    } 
+  });
+
+  it("receiver can accept delivery", async function() {
+    await deliveryContract.methods.accept().send({ from: accounts[1] });
+    var state = await deliveryContract.methods.getState(accounts[1]).call();
+    assert.equal(state, "accepted");
+  });
+
+  it("non sender can't finish delivery", async function() {
+    await deliveryContract.methods.accept().send({ from: accounts[1] });
+    await deliveryContract.methods.accept().send({ from: accounts[2] });
+    try { 
+      await deliveryContract.methods.finish("Test message").send({ from: accounts[3] });
+      assert(false);
+    } catch (err) {
+      assert(err);
+    } 
+  });
+
+  it("sender can finish delivery", async function() {
+    await deliveryContract.methods.accept().send({ from: accounts[1] });
+    await deliveryContract.methods.accept().send({ from: accounts[2] });
+    await deliveryContract.methods.finish("Test message").send({ from: accounts[0] });
+    var message = await deliveryContract.methods.message().call();
+    var state = await deliveryContract.methods.getState(accounts[1]).call();
+    assert.equal(message, "Test message");
+    assert.equal(state, "finished");
+  });
+
 });
