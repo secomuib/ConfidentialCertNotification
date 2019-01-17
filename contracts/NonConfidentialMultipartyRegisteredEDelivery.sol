@@ -32,8 +32,8 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
         }
         messageHash = _messageHash;
         start = now; // now = block.timestamp
-        term1 = _term1;
-        term2 = _term2;
+        term1 = _term1; // timeout term1, in seconds
+        term2 = _term2; // timeout term2, in seconds
     }
 
     // accept() let receivers accept the delivery
@@ -47,7 +47,7 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
     // finish() let sender finish the delivery sending the message
     function finish(string _message) public {
         require(now >= start+term1, "The timeout term1 has not been reached");
-        require (msg.sender==sender, "Only sender of the notification can finish");
+        require (msg.sender==sender, "Only sender of the delivery can finish");
         require (messageHash==keccak256(_message), "Message not valid (different hash)");
         
         message = _message;
