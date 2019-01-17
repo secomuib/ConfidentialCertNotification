@@ -1,6 +1,6 @@
 pragma solidity ^0.4.25;
 
-// Notificació multipart certificada no confidencial, d'un sol ús
+// Non-Confidential Multiparty Registered eDelivery
 contract NonConfidentialMultipartyRegisteredEDelivery {
     // Possible states
     enum State {notexists, created, cancelled, accepted, finished }
@@ -20,6 +20,7 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
     // Start time
     uint public start; 
 
+    // Constructor funcion to create the delivery
     constructor (address[] _receivers, bytes32 _messageHash, uint _term1, uint _term2) public payable {
         // Requires that the sender send a deposit of minimum 1 wei (>0 wei)
         require(msg.value>0, "Sender has to send a deposit of minimun 1 wei"); 
@@ -35,6 +36,7 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
         term2 = _term2;
     }
 
+    // accept() let receivers accept the delivery
     function accept() public {
         require(now < start+term1, "The timeout term1 has been reached");
         require(receiversState[msg.sender]==State.created, "Only receivers with 'created' state can accept");
@@ -42,6 +44,7 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
         receiversState[msg.sender] = State.accepted;
     }
 
+    // finish() let sender finish the delivery sending the message
     function finish(string _message) public {
         require(now >= start+term1, "The timeout term1 has not been reached");
         require (msg.sender==sender, "Only sender of the notification can finish");
@@ -57,6 +60,7 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
         }
     }
 
+    // cancel() let receivers cancel the delivery
     function cancel() public {
         require(now >= start+term2, "The timeout term2 has not been reached");
         require(receiversState[msg.sender]==State.accepted, "Only receivers with 'accepted' state can cancel");
@@ -64,6 +68,7 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
         receiversState[msg.sender] = State.cancelled;
     }
 
+    // getState(address) returns the state of a receiver in an string format
     function getState(address _receiver) public view returns (string) {
         if (receiversState[_receiver]==State.notexists) {
             return "not exists";
