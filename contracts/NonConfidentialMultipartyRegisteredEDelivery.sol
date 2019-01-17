@@ -1,5 +1,46 @@
 pragma solidity ^0.4.25;
 
+// Factory contract for Non-Confidential Multiparty Registered eDelivery
+contract NonConfidentialMultipartyRegisteredEDeliveryFactory {
+    mapping(address => address[]) public senderDeliveries;
+    mapping(address => address[]) public receiverDeliveries;
+    address[] public deliveries;
+
+    function createDelivery(address[] _receivers, bytes32 _messageHash, uint _term1, uint _term2) public payable {
+        address newDelivery = (new NonConfidentialMultipartyRegisteredEDelivery)
+            .value(msg.value)(msg.sender, _receivers, _messageHash, _term1, _term2);
+        deliveries.push(newDelivery);
+        senderDeliveries[msg.sender].push(newDelivery);
+        for (uint i = 0; i<_receivers.length; i++) {
+            receiverDeliveries[_receivers[i]].push(newDelivery);
+        }
+    }
+
+    function getSenderDeliveries(address _sender) public view returns (address[]) {
+        return senderDeliveries[_sender];
+    }
+
+    function getSenderDeliveriesCount(address _sender) public view returns (uint) {
+        return senderDeliveries[_sender].length;
+    }
+
+    function getReceiverDeliveries(address _receiver) public view returns (address[]) {
+        return receiverDeliveries[_receiver];
+    }
+
+    function getReceiverDeliveriesCount(address _receiver) public view returns (uint) {
+        return receiverDeliveries[_receiver].length;
+    }
+
+    function getDeliveries() public view returns (address[]) {
+        return deliveries;
+    }
+
+    function getDeliveriesCount() public view returns (uint) {
+        return deliveries.length;
+    }
+}
+
 // Non-Confidential Multiparty Registered eDelivery
 contract NonConfidentialMultipartyRegisteredEDelivery {
     // Possible states
