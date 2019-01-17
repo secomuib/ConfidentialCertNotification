@@ -62,10 +62,10 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
     uint public start; 
 
     // Constructor funcion to create the delivery
-    constructor (address[] _receivers, bytes32 _messageHash, uint _term1, uint _term2) public payable {
+    constructor (address _sender, address[] _receivers, bytes32 _messageHash, uint _term1, uint _term2) public payable {
         // Requires that the sender send a deposit of minimum 1 wei (>0 wei)
         require(msg.value>0, "Sender has to send a deposit of minimun 1 wei"); 
-        sender = msg.sender;
+        sender = _sender;
         receivers = _receivers;
         // We set the state of every receiver to 'created'
         for (uint i = 0; i<receivers.length; i++) {
