@@ -1,6 +1,9 @@
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
-const { interface, bytecode } = require('./compile');
+const fs = require("fs");
+
+const compile = require('./compile');
+const compiledFactory = compile.NonConfidentialMultipartyRegisteredEDeliveryFactory;
 
 const provider = new HDWalletProvider(
   'tragic square news business dad cricket nurse athlete tide split about ring',
@@ -13,10 +16,11 @@ const deploy = async () => {
 
   console.log('Attempting to deploy from account', accounts[0]);
 
-  const result = await new web3.eth.Contract(JSON.parse(interface))
-    .deploy({ data: bytecode, arguments: [accounts[0], web3.utils.keccak256("Test message"), 600] })
-    .send({ from: accounts[0], gas: '3000000', value: '100' });
+  const result = await new web3.eth.Contract(JSON.parse(compiledFactory.interface))
+    .deploy({ data: compiledFactory.bytecode, arguments: [] })
+    .send({ from: accounts[0], gas: '3000000' });
 
-  console.log('Contract deployed to', result.options.address);
+  fs.writeFileSync('./CONTRACTADDRESS', result.options.address);
+  console.log('Contract deployed to Rinkeby network, at address ', result.options.address);
 };
 deploy();
