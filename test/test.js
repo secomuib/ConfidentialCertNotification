@@ -73,9 +73,9 @@ describe('Certified eDelivery Contract', () => {
     await deliveryContract.methods.accept().send({ from: accounts[1] });
     await deliveryContract.methods.accept().send({ from: accounts[2] });
     await deliveryContract.methods.finish("Test message").send({ from: accounts[0] });
-    /*var message = await deliveryContract.methods.message().call();
+    var message = await deliveryContract.methods.message().call();
     var state = await deliveryContract.methods.getState(accounts[1]).call();
     assert.equal(message, "Test message");
-    assert.equal(state, "finished");*/
+    assert.equal(state, "finished");
   });
 });
