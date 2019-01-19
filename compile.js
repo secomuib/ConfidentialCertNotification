@@ -11,9 +11,8 @@ var contractSource = fs.readFileSync(contractPath, "utf8");
 console.log("Compiling "+contractPath+"...");
 const output = solc.compile(contractSource, 1).contracts;
 
-
 for (let contract in output) {
     var contractName = contract.replace(":", "");
     console.log("Exporting "+contractName+" contract...");
-    module.exports[contractName] = contract;
+    module.exports[contractName] = output[contract];
 }
