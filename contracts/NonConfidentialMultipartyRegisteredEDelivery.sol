@@ -50,6 +50,7 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
     address public sender;
     address[] public receivers;
     mapping (address => State) public receiversState;
+    uint acceptedReceivers;
 
     // Message
     bytes32 public messageHash;
@@ -65,12 +66,14 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
     constructor (address _sender, address[] _receivers, bytes32 _messageHash, uint _term1, uint _term2) public payable {
         // Requires that the sender send a deposit of minimum 1 wei (>0 wei)
         require(msg.value>0, "Sender has to send a deposit of minimun 1 wei"); 
+        require(_term1 < _term2, "Timeout term2 must be greater than _term1");
         sender = _sender;
         receivers = _receivers;
         // We set the state of every receiver to 'created'
         for (uint i = 0; i<receivers.length; i++) {
             receiversState[receivers[i]] = State.created;
         }
+        acceptedReceivers = 0;
         messageHash = _messageHash;
         start = now; // now = block.timestamp
         term1 = _term1; // timeout term1, in seconds
@@ -82,12 +85,14 @@ contract NonConfidentialMultipartyRegisteredEDelivery {
         require(now < start+term1, "The timeout term1 has been reached");
         require(receiversState[msg.sender]==State.created, "Only receivers with 'created' state can accept");
 
-        receiversState[msg.sender] = State.accepted;
+        acceptedReceivers = acceptedReceivers+1;
+        receiversState[msg.sender] = State.accepted;        
     }
 
     // finish() let sender finish the delivery sending the message
     function finish(string _message) public {
-        require(now >= start+term1, "The timeout term1 has not been reached");
+        require((now >= start+term1) || (acceptedReceivers>=receivers.length), 
+            "The timeout term1 has not been reached and not all receivers have been accepted the delivery");
         require (msg.sender==sender, "Only sender of the delivery can finish");
         require (messageHash==keccak256(_message), "Message not valid (different hash)");
         
