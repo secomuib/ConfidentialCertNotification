@@ -7,17 +7,15 @@ contract ConfidentialMultipartyRegisteredEDeliveryFactoryTTP {
     address[] public deliveries;
 
     address public ttp;
-    bytes32 public publicKey;
 
     // Constructor funcion to create the factory/TTP
-    constructor (bytes32 _publicKey) public payable {
+    constructor () public payable {
         ttp = msg.sender;
-        publicKey = _publicKey;
     }
 
-    function createDelivery(address[] _receivers, bytes32 _encryptedMessage, bytes32 _senderSignature, uint _term) public {
+    function createDelivery(address[] _receivers, uint _term) public {
         address newDelivery = new ConfidentialMultipartyRegisteredEDelivery
-            (msg.sender, ttp, _receivers, _encryptedMessage, _senderSignature, _term);
+            (msg.sender, ttp, _receivers, _term);
         deliveries.push(newDelivery);
         senderDeliveries[msg.sender].push(newDelivery);
         for (uint i = 0; i<_receivers.length; i++) {
@@ -57,6 +55,7 @@ contract ConfidentialMultipartyRegisteredEDelivery {
     
     struct ReceiverState{
         bytes32 receiverSignature;      // hB
+        bytes32 keySignature;           // k'T
         State state;
     }
 
@@ -67,10 +66,6 @@ contract ConfidentialMultipartyRegisteredEDelivery {
     mapping (address => ReceiverState) public receiversState;
     uint acceptedReceivers;
 
-    // Message
-    bytes32 public encryptedMessage;    // c
-    bytes32 public senderSignature;     // hA
-    string public message;
     // Time limit (in seconds)
     // See units: http://solidity.readthedocs.io/en/develop/units-and-global-variables.html?highlight=timestamp#time-units
     uint public term;
@@ -78,7 +73,7 @@ contract ConfidentialMultipartyRegisteredEDelivery {
     uint public start; 
 
     // Constructor funcion to create the delivery
-    constructor (address _sender, address _ttp, address[] _receivers, bytes32 _encryptedMessage, bytes32 _senderSignature, uint _term) public {
+    constructor (address _sender, address _ttp, address[] _receivers, uint _term) public {
         sender = _sender;
         ttp = _ttp;
         receivers = _receivers;
@@ -87,8 +82,6 @@ contract ConfidentialMultipartyRegisteredEDelivery {
             receiversState[receivers[i]].state = State.created;
         }
         acceptedReceivers = 0;
-        encryptedMessage = _encryptedMessage;
-        senderSignature = _senderSignature;
         start = now; // now = block.timestamp
         term = _term; // timeout term, in seconds
     }
@@ -113,7 +106,7 @@ contract ConfidentialMultipartyRegisteredEDelivery {
         require (msg.sender==sender, "Only sender of the delivery can finish");
         //require (messageHash==keccak256(_message), "Message not valid (different hash)");
         
-        message = _message;
+        //message = _message;
         // We set the state of every receiver with 'accepted' state to 'finished'
         for (uint i = 0; i<receivers.length; i++) {
             if (receiversState[receivers[i]].state == State.accepted) {
@@ -146,8 +139,13 @@ contract ConfidentialMultipartyRegisteredEDelivery {
         } 
     }
 
-    // getState(address) returns the state of a receiver in an string format
+    // getReceiverSignature(address) returns the signature of a receiver
     function getReceiverSignature(address _receiver) public view returns (bytes32) {
         return receiversState[_receiver].receiverSignature;
+    }
+
+    // getKeySignature(address) returns the key for a receiver
+    function getKeySignature(address _receiver) public view returns (bytes32) {
+        return receiversState[_receiver].keySignature;
     }
 }
