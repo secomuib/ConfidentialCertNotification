@@ -13,9 +13,9 @@ contract ConfidentialMultipartyRegisteredEDeliveryFactoryTTP {
         ttp = msg.sender;
     }
 
-    function createDelivery(address[] _receivers, uint _term) public {
+    function createDelivery(address[] _receivers) public {
         address newDelivery = new ConfidentialMultipartyRegisteredEDelivery
-            (msg.sender, ttp, _receivers, _term);
+            (msg.sender, ttp, _receivers);
         deliveries.push(newDelivery);
         senderDeliveries[msg.sender].push(newDelivery);
         for (uint i = 0; i<_receivers.length; i++) {
@@ -51,7 +51,7 @@ contract ConfidentialMultipartyRegisteredEDeliveryFactoryTTP {
 // Non-Confidential Multiparty Registered eDelivery
 contract ConfidentialMultipartyRegisteredEDelivery {
     // Possible states
-    enum State {notexists, created, cancelled, accepted, finished }
+    enum State {notexists, created, cancelled, finished }
     
     struct ReceiverState{
         bytes32 receiverSignature;      // hB
@@ -64,16 +64,9 @@ contract ConfidentialMultipartyRegisteredEDelivery {
     address public ttp;
     address[] public receivers;
     mapping (address => ReceiverState) public receiversState;
-    uint acceptedReceivers;
-
-    // Time limit (in seconds)
-    // See units: http://solidity.readthedocs.io/en/develop/units-and-global-variables.html?highlight=timestamp#time-units
-    uint public term;
-    // Start time
-    uint public start; 
 
     // Constructor funcion to create the delivery
-    constructor (address _sender, address _ttp, address[] _receivers, uint _term) public {
+    constructor (address _sender, address _ttp, address[] _receivers) public {
         sender = _sender;
         ttp = _ttp;
         receivers = _receivers;
@@ -81,47 +74,28 @@ contract ConfidentialMultipartyRegisteredEDelivery {
         for (uint i = 0; i<receivers.length; i++) {
             receiversState[receivers[i]].state = State.created;
         }
-        acceptedReceivers = 0;
-        start = now; // now = block.timestamp
-        term = _term; // timeout term, in seconds
     }
 
-    // accept() let receivers accept the delivery
-    function accept(bytes32 _receiverSignature) public {
-        require(now < start+term, "The timeout 'term' has been reached");
-        require(receiversState[msg.sender].state==State.created, "Only receivers with 'created' state can accept");
-
-        acceptedReceivers = acceptedReceivers+1;
-        receiversState[msg.sender].receiverSignature = _receiverSignature;
-        receiversState[msg.sender].state = State.accepted;        
-    }
-
-    // finish() let sender finish the delivery sending the message
-    function finish(string _message) public {
-        
-        // PENDENT: comprovar que finaliza el TTP
-
-        require((now >= start+term) || (acceptedReceivers>=receivers.length), 
-            "The timeout 'term' has not been reached and not all receivers have been accepted the delivery");
-        require (msg.sender==sender, "Only sender of the delivery can finish");
-        //require (messageHash==keccak256(_message), "Message not valid (different hash)");
-        
-        //message = _message;
-        // We set the state of every receiver with 'accepted' state to 'finished'
-        for (uint i = 0; i<receivers.length; i++) {
-            if (receiversState[receivers[i]].state == State.accepted) {
-                receiversState[receivers[i]].state = State.finished;    
+    // cancel() let sender cancel the delivery
+    function cancel() public {
+        require (msg.sender==sender, "Only sender of the delivery can cancel");
+        for (uint i = 0; i<receivers.length;i++) {
+            if (receiversState[receivers[i]].state == State.created) {
+                // Add Bi to B”−cancelled
+                receiversState[receivers[i]].state = State.cancelled;
             }
         }
     }
 
-    // cancel() let receivers cancel the delivery
-    function cancel() public {
-        require(receiversState[msg.sender].state==State.accepted, "Only receivers with 'accepted' state can cancel");
-
-        // PENDENT: Segons 9.4.2, el sender també pot cancelar
-
-        receiversState[msg.sender].state = State.cancelled;
+    // finish() let TTP finish the delivery
+    function finish(address _receiver, bytes32 _receiverSignature, bytes32 _keySignature) public {
+        require (msg.sender==ttp, "Only TTP of the delivery can finish");
+        if (receiversState[_receiver].state == State.created) {
+            // Add Bi to B”−finished
+            receiversState[_receiver].receiverSignature = _receiverSignature;
+            receiversState[_receiver].keySignature = _keySignature;
+            receiversState[_receiver].state = State.finished;
+        }
     }
 
     // getState(address) returns the state of a receiver in an string format
@@ -132,8 +106,6 @@ contract ConfidentialMultipartyRegisteredEDelivery {
             return "created";
         } else if (receiversState[_receiver].state==State.cancelled) {
             return "cancelled";
-        } else if (receiversState[_receiver].state==State.accepted) {
-            return "accepted";
         } else if (receiversState[_receiver].state==State.finished) {
             return "finished";
         } 
