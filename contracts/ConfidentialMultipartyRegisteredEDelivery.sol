@@ -1,7 +1,7 @@
 pragma solidity ^0.4.25;
 
 // Factory contract for Confidential Multiparty Registered eDelivery
-contract ConfidentialMultipartyRegisteredEDeliveryFactoryTTP {
+contract ConfidentialMultipartyRegisteredEDeliveryFactory {
     mapping(address => address[]) public senderDeliveries;
     mapping(address => address[]) public receiverDeliveries;
     address[] public deliveries;

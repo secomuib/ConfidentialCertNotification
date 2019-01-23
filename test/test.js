@@ -23,8 +23,8 @@ beforeEach(async () => {
     .send({ from: accounts[0], gas: '3000000' });
 
   var a = await factoryContract.methods
-    .createDelivery([accounts[1],accounts[2]], web3.utils.keccak256("Test message"), 600, 1200)
-    .send({ from: accounts[0], gas: '3000000', value: '100' });
+    .createDelivery([accounts[2],accounts[3]])
+    .send({ from: accounts[1], gas: '3000000' });
 
   const addresses = await factoryContract.methods.getDeliveries().call();
   deliveryContractAddress = addresses[0];
@@ -38,44 +38,41 @@ describe('Certified eDelivery Contract', () => {
     assert.ok(deliveryContract.options.address);
   });
 
-  it("state is created and has a hash message", async function () {
-    var messageHash = await deliveryContract.methods.messageHash().call();
-    assert.equal(messageHash, web3.utils.keccak256("Test message"));
-  });
-
-  it("non receivers can't accept delivery", async function() {
+  it("non TTP can't finish delivery", async function() {
     try { 
-      await deliveryContract.methods.accept().send({ from: accounts[3] });
+      await deliveryContract.methods
+        .finish(accounts[2], web3.utils.keccak256("ReceiverSignature"), web3.utils.keccak256("KeySignature"))
+        .send({ from: accounts[1] });
       assert(false);
     } catch (err) {
       assert(err);
     } 
   });
 
-  it("receiver can accept delivery", async function() {
-    await deliveryContract.methods.accept().send({ from: accounts[1] });
-    var state = await deliveryContract.methods.getState(accounts[1]).call();
-    assert.equal(state, "accepted");
-  });
-
-  it("non sender can't finish delivery", async function() {
-    await deliveryContract.methods.accept().send({ from: accounts[1] });
-    await deliveryContract.methods.accept().send({ from: accounts[2] });
-    try { 
-      await deliveryContract.methods.finish("Test message").send({ from: accounts[3] });
-      assert(false);
-    } catch (err) {
-      assert(err);
-    } 
-  });
-
-  it("sender can finish delivery", async function() {
-    await deliveryContract.methods.accept().send({ from: accounts[1] });
-    await deliveryContract.methods.accept().send({ from: accounts[2] });
-    await deliveryContract.methods.finish("Test message").send({ from: accounts[0] });
-    var message = await deliveryContract.methods.message().call();
-    var state = await deliveryContract.methods.getState(accounts[1]).call();
-    assert.equal(message, "Test message");
+  it("TTP can finish delivery", async function() {
+    await deliveryContract.methods
+      .finish(accounts[2], web3.utils.keccak256("ReceiverSignature"), web3.utils.keccak256("KeySignature"))
+      .send({ from: accounts[0] });
+    var state = await deliveryContract.methods.getState(accounts[2]).call();
     assert.equal(state, "finished");
+  });
+
+  it("non sender can't cancel delivery", async function() {
+    try { 
+      await deliveryContract.methods
+        .cancel()
+        .send({ from: accounts[2] });
+      assert(false);
+    } catch (err) {
+      assert(err);
+    } 
+  });
+
+  it("sender can cancel delivery", async function() {
+    await deliveryContract.methods
+      .cancel()
+      .send({ from: accounts[1] });
+    var state = await deliveryContract.methods.getState(accounts[2]).call();
+    assert.equal(state, "cancelled");
   });
 });
