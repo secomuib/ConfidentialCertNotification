@@ -3,7 +3,7 @@ const Web3 = require('web3');
 const fs = require("fs");
 
 const compile = require('./compile');
-const compiledFactory = compile.ConfidentialMultipartyRegisteredEDeliveryFactory;
+const compiledDelivery = compile.ConfidentialMultipartyRegisteredEDelivery;
 
 const provider = new HDWalletProvider(
   'tragic square news business dad cricket nurse athlete tide split about ring',
@@ -16,8 +16,8 @@ const deploy = async () => {
 
   console.log('Attempting to deploy from account', accounts[0]);
 
-  const result = await new web3.eth.Contract(JSON.parse(compiledFactory.interface))
-    .deploy({ data: compiledFactory.bytecode, arguments: [] })
+  const result = await new web3.eth.Contract(JSON.parse(compiledDelivery.interface))
+    .deploy({ data: compiledDelivery.bytecode, arguments: [] })
     .send({ from: accounts[0], gas: '3000000' });
 
   fs.writeFileSync('./CONTRACTADDRESS', result.options.address);
