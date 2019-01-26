@@ -28,8 +28,8 @@ describe('Certified eDelivery Contract', () => {
   it("non TTP can't finish delivery", async function() {
     try { 
       await deliveryContract.methods
-        .finish(accounts[2], web3.utils.keccak256("ReceiverSignature"), web3.utils.keccak256("KeySignature"))
-        .send({ from: accounts[1] });
+        .finish(1, accounts[1], accounts[2], web3.utils.randomHex(32), web3.utils.randomHex(32))
+        .send({ from: accounts[1], gas: '3000000' });
       assert(false);
     } catch (err) {
       assert(err);
@@ -38,28 +38,17 @@ describe('Certified eDelivery Contract', () => {
 
   it("TTP can finish delivery", async function() {
     await deliveryContract.methods
-      .finish(accounts[2], web3.utils.keccak256("ReceiverSignature"), web3.utils.keccak256("KeySignature"))
-      .send({ from: accounts[0] });
-    var state = await deliveryContract.methods.getState(accounts[2]).call();
+      .finish(1, accounts[1], accounts[2], web3.utils.randomHex(32), web3.utils.randomHex(32))
+      .send({ from: accounts[0], gas: '3000000' });
+    var state = await deliveryContract.methods.getState(1, accounts[1], accounts[2]).call();
     assert.equal(state, "finished");
-  });
-
-  it("non sender can't cancel delivery", async function() {
-    try { 
-      await deliveryContract.methods
-        .cancel()
-        .send({ from: accounts[2] });
-      assert(false);
-    } catch (err) {
-      assert(err);
-    } 
   });
 
   it("sender can cancel delivery", async function() {
     await deliveryContract.methods
-      .cancel()
-      .send({ from: accounts[1] });
-    var state = await deliveryContract.methods.getState(accounts[2]).call();
+      .cancel(1, [accounts[2], accounts[3]])
+      .send({ from: accounts[1], gas: '3000000' });
+      var state = await deliveryContract.methods.getState(1, accounts[1], accounts[2]).call();
     assert.equal(state, "cancelled");
   });
 });
