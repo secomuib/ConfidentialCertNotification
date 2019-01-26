@@ -47,12 +47,12 @@ contract ConfidentialMultipartyRegisteredEDelivery {
     function cancel (uint _id, address[] _cancelledReceivers) public {
         if (!messages[_id].messageExists) {
             // Message not exists
-            createMessage(_id, _sender);
+            createMessage(_id, msg.sender);
         }
         require (msg.sender==messages[_id].sender, "Only sender of the message can cancel");
-        for (uint i = 0; i<cancelledReceivers.length;i++){
+        for (uint i = 0; i<_cancelledReceivers.length;i++){
             address receiverToCancel = _cancelledReceivers[i];
-            if (messages[_id].receiversState[_receiver].state==State.notexists) {
+            if (messages[_id].receiversState[receiverToCancel].state==State.notexists) {
                 // Receiver state is 'not exists'
                 addReceiver(_id, receiverToCancel, 0, 0, State.cancelled);
             }
