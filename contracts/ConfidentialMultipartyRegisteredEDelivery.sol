@@ -40,9 +40,9 @@ contract ConfidentialMultipartyRegisteredEDelivery {
     }
 
     // cancel() lets sender cancel the delivery
-    function cancel (uint _id, address[] _cancelledReceivers) public {
-        for (uint i = 0; i<_cancelledReceivers.length;i++){
-            address receiverToCancel = _cancelledReceivers[i];
+    function cancel(uint _id, address[] _receivers) public {
+        for (uint i = 0; i<_receivers.length;i++){
+            address receiverToCancel = _receivers[i];
             if (messages[msg.sender][_id].receiversState[receiverToCancel].state==State.notexists) {
                 // Receiver state is 'not exists'
                 addReceiver(_id, msg.sender, receiverToCancel, 0, 0, State.cancelled);
