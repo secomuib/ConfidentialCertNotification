@@ -33,10 +33,6 @@ contract ConfidentialMultipartyRegisteredEDelivery {
     // finish() lets TTP finish the delivery
     function finish(uint _id, address _sender, address _receiver, bytes32 _receiverSignature, bytes32 _keySignature) public {
         require (msg.sender==ttp, "Only TTP can finish");
-        if (!messages[_sender][_id].messageExists) {
-            // Message not exists
-            createMessage(_id, _sender);
-        }
         if (messages[_sender][_id].receiversState[_receiver].state==State.notexists) {
             // Receiver state is 'not exists'
             addReceiver(_id, _sender, _receiver, _receiverSignature, _keySignature, State.finished);
@@ -45,10 +41,6 @@ contract ConfidentialMultipartyRegisteredEDelivery {
 
     // cancel() lets sender cancel the delivery
     function cancel (uint _id, address[] _cancelledReceivers) public {
-        if (!messages[msg.sender][_id].messageExists) {
-            // Message not exists
-            createMessage(_id, msg.sender);
-        }
         for (uint i = 0; i<_cancelledReceivers.length;i++){
             address receiverToCancel = _cancelledReceivers[i];
             if (messages[msg.sender][_id].receiversState[receiverToCancel].state==State.notexists) {
@@ -58,14 +50,13 @@ contract ConfidentialMultipartyRegisteredEDelivery {
         }
     }
 
-    // Creates a new message
-    function createMessage(uint _id, address _sender) private {
-        messages[_sender][_id].sender = _sender;
-        messages[_sender][_id].messageExists = true;
-    }
-
     // Adds a new receiver to that message
     function addReceiver(uint _id, address _sender, address _receiver, bytes32 _receiverSignature, bytes32 _keySignature, State _state) private {
+        if (!messages[msg.sender][_id].messageExists) {
+            // Message not exists
+            messages[_sender][_id].sender = _sender;
+            messages[_sender][_id].messageExists = true;
+        }
         messages[_sender][_id].receivers.push(_receiver);
         messages[_sender][_id].receiversState[_receiver].receiverSignature = _receiverSignature;
         messages[_sender][_id].receiversState[_receiver].keySignature = _keySignature;
