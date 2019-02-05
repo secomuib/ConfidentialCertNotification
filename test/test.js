@@ -3,8 +3,8 @@ const ganache = require('ganache-cli');
 const Web3 = require('web3');
 const web3 = new Web3(ganache.provider());
 
-const compile = require('../compile');
-const compiledDelivery = compile.ConfidentialMultipartyRegisteredEDelivery;
+const compiledDeliveryPath = '../contracts/build/ConfidentialMultipartyRegisteredEDelivery.json';
+const compiledDelivery = require(compiledDeliveryPath);
 
 let deliveryContract;
 let accounts;
