@@ -1,0 +1,279 @@
+> confidentialmultipartyregisterededelivery@1.0.0 performance /Users/miquel/Desktop/blockchain/ConfidentialMultipartyRegisteredEDelivery
+> node performance.js
+
+
+For 1 receiver/s
+------------------------
+Delay of function deploy(): 0s 146.287676ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 64.725317ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 68.192781ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 76.464756ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 53.473186ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 64.872952ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 72.466469ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 54.903913ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 49.649541ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 60.3392ms
+Cost of function deploy():                  1,074,794,000,007,168
+AVERAGE DELAY: 71.1375791ms
+AVERAGE COST: 1,074,794,000,000,610
+Delay of function finish(): 0s 52.296438ms
+Cost of function finish():                    303,257,999,998,976
+Delay of function finish(): 0s 55.735241ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 57.460175ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 67.016788ms
+Cost of function finish():                    303,514,000,015,360
+Delay of function finish(): 0s 60.655466ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 58.55114ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 51.162839ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 50.867282ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 53.036294ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 50.406472ms
+Cost of function finish():                    303,513,999,998,976
+AVERAGE DELAY: 55.718813499999996ms
+AVERAGE COST: 303,488,400,000,614.4
+Delay of function cancel(): 0s 54.808126ms
+Cost of function cancel():                    232,769,999,994,880
+Delay of function cancel(): 0s 51.629295ms
+Cost of function cancel():                    232,770,000,011,264
+Delay of function cancel(): 0s 58.186672ms
+Cost of function cancel():                    232,769,999,994,880
+Delay of function cancel(): 0s 49.010616ms
+Cost of function cancel():                    232,769,999,994,880
+Delay of function cancel(): 0s 58.487721ms
+Cost of function cancel():                    232,770,000,011,264
+Delay of function cancel(): 0s 46.929127ms
+Cost of function cancel():                    232,769,999,994,880
+Delay of function cancel(): 0s 51.881244ms
+Cost of function cancel():                    232,769,999,994,880
+Delay of function cancel(): 0s 48.696115ms
+Cost of function cancel():                    232,769,999,994,880
+Delay of function cancel(): 0s 49.563493ms
+Cost of function cancel():                    232,770,000,011,264
+Delay of function cancel(): 0s 41.740211ms
+Cost of function cancel():                    232,769,999,994,880
+AVERAGE DELAY: 51.093261999999996ms
+AVERAGE COST: 232,769,999,999,795.2
+
+For 2 receiver/s
+------------------------
+Delay of function deploy(): 0s 42.787995ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 39.682701ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 31.734864ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 39.905852ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 31.235024ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 35.545296ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 42.2984ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 35.251435ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 36.520656ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 34.82775ms
+Cost of function deploy():                  1,074,794,000,007,168
+AVERAGE DELAY: 36.978997299999996ms
+AVERAGE COST: 1,074,794,000,000,610
+Delay of function finish(): 0s 39.181872ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 53.141067ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 52.521759ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 44.30097ms
+Cost of function finish():                    303,257,999,998,976
+Delay of function finish(): 0s 40.532895ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 46.185541ms
+Cost of function finish():                    303,514,000,015,360
+Delay of function finish(): 0s 49.32269ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 40.522935ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 47.261477ms
+Cost of function finish():                    303,385,999,998,976
+Delay of function finish(): 0s 59.526524ms
+Cost of function finish():                    303,513,999,998,976
+AVERAGE DELAY: 47.249773000000005ms
+AVERAGE COST: 303,475,600,000,614.4
+Delay of function cancel(): 0s 53.65595ms
+Cost of function cancel():                    350,028,000,002,048
+Delay of function cancel(): 0s 54.738886ms
+Cost of function cancel():                    350,028,000,002,048
+Delay of function cancel(): 0s 46.688122ms
+Cost of function cancel():                    350,028,000,002,048
+Delay of function cancel(): 0s 57.76072ms
+Cost of function cancel():                    350,028,000,002,048
+Delay of function cancel(): 0s 52.671606ms
+Cost of function cancel():                    350,027,999,985,664
+Delay of function cancel(): 0s 61.333741ms
+Cost of function cancel():                    350,028,000,002,048
+Delay of function cancel(): 0s 58.730397ms
+Cost of function cancel():                    350,028,000,002,048
+Delay of function cancel(): 0s 57.66317ms
+Cost of function cancel():                    350,028,000,002,048
+Delay of function cancel(): 0s 54.31681ms
+Cost of function cancel():                    350,028,000,002,048
+Delay of function cancel(): 0s 55.81244ms
+Cost of function cancel():                    350,028,000,002,048
+AVERAGE DELAY: 55.33718419999999ms
+AVERAGE COST: 350,028,000,000,409.6
+
+For 10 receiver/s
+------------------------
+Delay of function deploy(): 0s 41.779557ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 44.309012ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 32.822658ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 27.483052ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 31.135038ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 38.952678ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 33.659307ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 43.13914ms
+Cost of function deploy():                  1,074,793,999,990,784
+Delay of function deploy(): 0s 34.139966ms
+Cost of function deploy():                  1,074,794,000,007,168
+Delay of function deploy(): 0s 40.537772ms
+Cost of function deploy():                  1,074,793,999,990,784
+AVERAGE DELAY: 36.795818000000004ms
+AVERAGE COST: 1,074,793,999,998,976
+Delay of function finish(): 0s 39.079246ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 43.11932ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 51.967623ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 48.329598ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 45.08916ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 157.682783ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 45.960567ms
+Cost of function finish():                    303,385,999,998,976
+Delay of function finish(): 0s 45.682175ms
+Cost of function finish():                    303,514,000,015,360
+Delay of function finish(): 0s 46.896201ms
+Cost of function finish():                    303,513,999,998,976
+Delay of function finish(): 0s 51.914377ms
+Cost of function finish():                    303,513,999,998,976
+AVERAGE DELAY: 57.57210500000001ms
+AVERAGE COST: 303,501,200,000,614.4
+Delay of function cancel(): 0s 168.904557ms
+Cost of function cancel():                  1,287,963,999,993,856
+Delay of function cancel(): 0s 183.123476ms
+Cost of function cancel():                  1,287,964,000,010,240
+Delay of function cancel(): 0s 177.581215ms
+Cost of function cancel():                  1,287,963,999,993,856
+Delay of function cancel(): 0s 173.636134ms
+Cost of function cancel():                  1,287,963,999,993,856
+Delay of function cancel(): 0s 168.284746ms
+Cost of function cancel():                  1,287,964,000,010,240
+Delay of function cancel(): 0s 162.936785ms
+Cost of function cancel():                  1,287,963,999,993,856
+Delay of function cancel(): 0s 144.805749ms
+Cost of function cancel():                  1,287,963,999,993,856
+Delay of function cancel(): 0s 144.241718ms
+Cost of function cancel():                  1,287,964,000,010,240
+Delay of function cancel(): 0s 142.561653ms
+Cost of function cancel():                  1,287,963,999,993,856
+Delay of function cancel(): 0s 130.466966ms
+Cost of function cancel():                  1,287,964,000,010,240
+AVERAGE DELAY: 159.65429989999998ms
+AVERAGE COST: 1,287,964,000,000,410
+
+For 2-party notification
+------------------------
+Delay of function deploy(): 0s 40.35283ms
+Cost of function deploy():                  1,301,030,000,001,024
+Delay of function deploy(): 0s 35.130227ms
+Cost of function deploy():                  1,301,030,000,001,024
+Delay of function deploy(): 0s 49.48837ms
+Cost of function deploy():                  1,301,029,999,984,640
+Delay of function deploy(): 0s 40.559142ms
+Cost of function deploy():                  1,301,030,000,001,024
+Delay of function deploy(): 0s 38.273845ms
+Cost of function deploy():                  1,301,030,000,001,024
+Delay of function deploy(): 0s 32.417014ms
+Cost of function deploy():                  1,301,030,000,001,024
+Delay of function deploy(): 0s 113.315958ms
+Cost of function deploy():                  1,301,030,000,001,024
+Delay of function deploy(): 0s 42.616962ms
+Cost of function deploy():                  1,301,030,000,001,024
+Delay of function deploy(): 0s 47.556973ms
+Cost of function deploy():                  1,301,030,000,001,024
+Delay of function deploy(): 0s 41.431435ms
+Cost of function deploy():                  1,301,030,000,001,024
+AVERAGE DELAY: 48.1142756ms
+AVERAGE COST: 1,301,029,999,999,390
+Delay of function finish(): 0s 61.017941ms
+Cost of function finish():                    433,842,000,003,072
+Delay of function finish(): 0s 74.368506ms
+Cost of function finish():                    433,842,000,003,072
+Delay of function finish(): 0s 61.654927ms
+Cost of function finish():                    433,842,000,003,072
+Delay of function finish(): 0s 56.21331ms
+Cost of function finish():                    433,842,000,003,072
+Delay of function finish(): 0s 59.445784ms
+Cost of function finish():                    433,841,999,986,688
+Delay of function finish(): 0s 53.775977ms
+Cost of function finish():                    433,842,000,003,072
+Delay of function finish(): 0s 64.206073ms
+Cost of function finish():                    433,842,000,003,072
+Delay of function finish(): 0s 63.587812ms
+Cost of function finish():                    433,842,000,003,072
+Delay of function finish(): 0s 62.157569ms
+Cost of function finish():                    433,842,000,003,072
+Delay of function finish(): 0s 57.186732ms
+Cost of function finish():                    433,841,999,986,688
+AVERAGE DELAY: 61.3614631ms
+AVERAGE COST: 433,841,999,999,795.2
+Delay of function cancel(): 0s 42.894419ms
+Cost of function cancel():                     88,923,999,993,856
+Delay of function cancel(): 0s 36.548784ms
+Cost of function cancel():                     88,923,999,993,856
+Delay of function cancel(): 0s 34.273359ms
+Cost of function cancel():                     88,924,000,010,240
+Delay of function cancel(): 0s 35.282547ms
+Cost of function cancel():                     88,923,999,993,856
+Delay of function cancel(): 0s 38.465559ms
+Cost of function cancel():                     88,924,000,010,240
+Delay of function cancel(): 0s 37.99414ms
+Cost of function cancel():                     88,923,999,993,856
+Delay of function cancel(): 0s 36.982351ms
+Cost of function cancel():                     88,923,999,993,856
+Delay of function cancel(): 0s 46.922238ms
+Cost of function cancel():                     88,924,000,010,240
+Delay of function cancel(): 0s 112.39578ms
+Cost of function cancel():                     88,923,999,993,856
+Delay of function cancel(): 0s 41.325025ms
+Cost of function cancel():                     88,923,999,993,856
+AVERAGE DELAY: 46.3084202ms
+AVERAGE COST: 88,923,999,998,771.2

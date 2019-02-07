@@ -23,3 +23,8 @@ To execute test:
 ```
 npm run test
 ```
+
+To execute performance analysis:
+```
+npm run performance
+```
